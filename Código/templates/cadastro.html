@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Wellness</title>
+    <link rel="icon" href="/static/imagens/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #FAFAF8;
+            color: #2B2B2B;
+            height: 100vh;
+            display: flex;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .lado-logo {
+            flex: 1;
+            background: linear-gradient(135deg, #4A6FA5 0%, #A7B99E 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .container-logo {
+            text-align: center;
+        }
+
+        .logo {
+            width: 240px;
+            height: 240px;
+            margin-bottom: 60px;
+        }
+
+        .texto-logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FAFAF8;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo-logo {
+            font-size: 1.2rem;
+            color: #DCE6F2;
+        }
+
+        .lado-cadastro {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background: #FAFAF8;
+        }
+
+        .container-cadastro {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(74, 111, 165, 0.1);
+            border: 1px solid #DCE6F2;
+        }
+
+        .titulo-cadastro {
+            font-size: 2rem;
+            color: #4A6FA5;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .subtitulo-cadastro {
+            color: #A7B99E;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .grupo-formulario {
+            margin-bottom: 20px;
+        }
+
+        .grupo-formulario label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2B2B2B;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .entrada-formulario {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #DCE6F2;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #FAFAF8;
+            transition: all 0.3s ease;
+        }
+
+        .entrada-formulario:focus {
+            outline: none;
+            border-color: #4A6FA5;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+        }
+
+        .entrada-formulario::placeholder {
+            color: #A7B99E;
+        }
+
+        .botao-cadastro {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #A7B99E 0%, #4A6FA5 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .botao-cadastro:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(167, 185, 158, 0.3);
+        }
+
+        .mensagem-erro {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #c62828;
+            font-size: 0.9rem;
+        }
+
+        .link-login {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #DCE6F2;
+        }
+
+        .link-login a {
+            color: #4A6FA5;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .link-login a:hover {
+            color: #A7B99E;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .lado-logo {
+                padding: 30px 20px;
+                min-height: 40vh;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .texto-logo {
+                font-size: 2rem;
+            }
+            
+            .container-cadastro {
+                padding: 30px 25px;
+                margin: -50px 20px 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container-cadastro {
+                padding: 25px 20px;
+                margin: -30px 15px 0 15px;
+            }
+            
+            .texto-logo {
+                font-size: 1.8rem;
+            }
+            
+            .subtitulo-logo {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lado-logo">
+            <div class="container-logo">
+                <img src="/static/imagens/logo.png" alt="Wellness Logo" class="logo">
+                <h1 class="texto-logo">Wellness</h1>
+                <p class="subtitulo-logo">Junte-se à nossa comunidade</p>
+            </div>
+        </div>
+
+        <div class="lado-cadastro">
+            <div class="container-cadastro">
+                <h2 class="titulo-cadastro">Criar Conta</h2>
+                <p class="subtitulo-cadastro">Preencha seus dados para começar</p>
+
+                {% if error %}
+                <div class="mensagem-erro">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form method="POST">
+                    <div class="grupo-formulario">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" class="entrada-formulario" placeholder="Seu nome completo" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="entrada-formulario" placeholder="seu@email.com" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha" class="entrada-formulario" placeholder="Crie uma senha" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="data_nascimento">Data de Nascimento</label>
+                        <input type="date" id="data_nascimento" name="data_nascimento" class="entrada-formulario" required>
+                    </div>
+
+                    <button type="submit" class="botao-cadastro">Criar Minha Conta</button>
+                </form>
+
+                <div class="link-login">
+                    <p>Já tem uma conta? <a href="/login">Fazer login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

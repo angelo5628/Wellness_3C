@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetivos - Wellness</title>
+    <link rel="icon" href="/static/imagens/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #FAFAF8;
+            color: #2B2B2B;
+            min-height: 100vh;
+        }
+
+        .barra-superior {
+            background: linear-gradient(135deg, #4A6FA5 0%, #A7B99E 100%);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-pequena {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .nome-site {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FAFAF8;
+        }
+
+        .perfil-usuario {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icone-perfil {
+            width: 50px;
+            height: 50px;
+            background: #FAFAF8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4A6FA5;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .barra-navegacao {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #DCE6F2;
+        }
+
+        .link-navegacao {
+            color: #2B2B2B;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .link-navegacao:hover {
+            background: #DCE6F2;
+            color: #4A6FA5;
+        }
+
+        .container-principal {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #4A6FA5;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitulo-pagina {
+            text-align: center;
+            color: #A7B99E;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(74, 111, 165, 0.1);
+            border: 1px solid #DCE6F2;
+            margin-bottom: 25px;
+        }
+
+        .titulo-card {
+            color: #4A6FA5;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #DCE6F2;
+            padding-bottom: 10px;
+        }
+
+        .grupo-formulario {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #4A6FA5;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #DCE6F2;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #FAFAF8;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4A6FA5;
+            background: white;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #A7B99E;
+        }
+
+        .botao-principal {
+            background: #4A6FA5;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .botao-principal:hover {
+            background: #3A5A85;
+        }
+
+        .lista-objetivos {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .objetivo-item {
+            background: #FAFAF8;
+            border-left: 4px solid #4A6FA5;
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .objetivo-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(74, 111, 165, 0.15);
+        }
+
+        .objetivo-item.concluido {
+            border-left-color: #A7B99E;
+            background: #F8FAF7;
+        }
+
+        .cabecalho-objetivo {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .descricao-objetivo {
+            font-weight: bold;
+            color: #4A6FA5;
+            font-size: 1.1rem;
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .badge-status {
+            background: #4A6FA5;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .badge-status.concluido {
+            background: #A7B99E;
+        }
+
+        .detalhes-objetivo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .detalhe-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detalhe-label {
+            font-size: 0.8rem;
+            color: #A7B99E;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .detalhe-valor {
+            color: #2B2B2B;
+            font-weight: 500;
+        }
+
+        .sem-objetivos {
+            text-align: center;
+            padding: 40px 20px;
+            color: #A7B99E;
+        }
+
+        .sem-objetivos h3 {
+            margin-bottom: 10px;
+            color: #4A6FA5;
+        }
+
+        @media (max-width: 600px) {
+            .container-principal {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .titulo-pagina {
+                font-size: 1.5rem;
+            }
+            
+            .cabecalho-objetivo {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .descricao-objetivo {
+                margin-right: 0;
+            }
+            
+            .detalhes-objetivo {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="barra-superior">
+        <a href="/dashboard" class="logo-link">
+            <img src="/static/imagens/logo.png" alt="Wellness" class="logo-pequena">
+            <span class="nome-site">Wellness</span>
+        </a>
+        <div class="perfil-usuario">
+            <div class="icone-perfil" onclick="window.location.href='/perfil'">
+                {{ session.user_name[0] | upper if session.user_name else 'U' }}
+            </div>
+        </div>
+    </header>
+
+    <nav class="barra-navegacao">
+        <a href="/treino_registro" class="link-navegacao">Treino</a>
+        <a href="/exercicios_cadastro" class="link-navegacao">Exercícios</a>
+        <a href="/medidas_registro" class="link-navegacao">Medidas</a>
+        <a href="/refeicoes_registro" class="link-navegacao">Alimentação</a>
+        <a href="/alimentos_cadastro" class="link-navegacao">Alimentos</a>
+        <a href="/objetivos" class="link-navegacao">Objetivos</a>
+        <a href="/relatorios" class="link-navegacao">Relatórios</a>
+        <a href="/sono_registro" class="link-navegacao">Sono</a>
+        <a href="/agua_registro" class="link-navegacao">Água</a>
+    </nav>
+
+    <main class="container-principal">
+        <h1 class="titulo-pagina">Meus Objetivos</h1>
+        <p class="subtitulo-pagina">Defina e acompanhe suas metas de wellness</p>
+
+        <div class="card">
+            <h2 class="titulo-card">Novo Objetivo</h2>
+            <form method="POST">
+                <div class="grupo-formulario">
+                    <label for="descricao">Descrição do Objetivo</label>
+                    <textarea 
+                        id="descricao" 
+                        name="descricao" 
+                        placeholder="Ex: Perder 5kg, Correr 10km, Beber 2L de água por dia..." 
+                        rows="3" 
+                        required></textarea>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="tipo_objetivo">Tipo de Objetivo</label>
+                    <select id="tipo_objetivo" name="tipo_objetivo" required>
+                        <option value="">Selecione o tipo de objetivo</option>
+                        <option value="Peso">Peso</option>
+                        <option value="Medidas">Medidas</option>
+                        <option value="Treino">Treino</option>
+                        <option value="Alimentação">Alimentação</option>
+                        <option value="Sono">Sono</option>
+                        <option value="Água">Água</option>
+                        <option value="Geral">Geral</option>
+                    </select>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="data_limite">Data Limite</label>
+                    <input type="date" id="data_limite" name="data_limite" required>
+                </div>
+
+                <button type="submit" class="botao-principal">
+                    Adicionar Objetivo
+                </button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2 class="titulo-card">Meus Objetivos</h2>
+            
+            {% if objetivos %}
+            <div class="lista-objetivos">
+                {% for objetivo in objetivos %}
+                <div class="objetivo-item {% if objetivo.concluido %}concluido{% endif %}">
+                    <div class="cabecalho-objetivo">
+                        <div class="descricao-objetivo">{{ objetivo.descricao }}</div>
+                        {% if objetivo.concluido %}
+                        <span class="badge-status concluido">Concluído</span>
+                        {% else %}
+                        <span class="badge-status">Em Andamento</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="detalhes-objetivo">
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">Tipo</span>
+                            <span class="detalhe-valor">{{ objetivo.tipo_objetivo }}</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">Data Limite</span>
+                            <span class="detalhe-valor">{{ objetivo.data_limite }}</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">Criado em</span>
+                            <span class="detalhe-valor">{{ objetivo.data_criacao[:10] }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="sem-objetivos">
+                <h3>Nenhum objetivo definido ainda</h3>
+                <p>Comece definindo seu primeiro objetivo acima!</p>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

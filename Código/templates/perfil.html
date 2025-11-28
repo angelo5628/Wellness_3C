@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - Wellness</title>
+    <link rel="icon" href="/static/imagens/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #FAFAF8;
+            color: #2B2B2B;
+            min-height: 100vh;
+        }
+
+        .barra-superior {
+            background: linear-gradient(135deg, #4A6FA5 0%, #A7B99E 100%);
+            padding: 20px 30px;
+            box-shadow: 0 2px 15px rgba(74, 111, 165, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-pequena {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .nome-site {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FAFAF8;
+        }
+
+        .perfil-usuario {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icone-perfil {
+            width: 50px;
+            height: 50px;
+            background: #FAFAF8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4A6FA5;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .icone-perfil:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+
+        .barra-navegacao {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(74, 111, 165, 0.05);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .link-navegacao {
+            color: #2B2B2B;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .link-navegacao:hover {
+            background: #DCE6F2;
+            color: #4A6FA5;
+        }
+
+        .container-principal {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .cabecalho-perfil {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .titulo-perfil {
+            font-size: 2.5rem;
+            color: #4A6FA5;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .subtitulo-perfil {
+            color: #A7B99E;
+            font-size: 1.1rem;
+        }
+
+        .layout-perfil {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .card-avatar {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(74, 111, 165, 0.08);
+            border: 1px solid #DCE6F2;
+            text-align: center;
+        }
+
+        .avatar-grande {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #4A6FA5 0%, #A7B99E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .nome-usuario {
+            font-size: 1.5rem;
+            color: #4A6FA5;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .email-usuario {
+            color: #A7B99E;
+            margin-bottom: 20px;
+        }
+
+        .estatisticas-rapidas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .estatistica-rapida {
+            text-align: center;
+            padding: 15px;
+            background: #FAFAF8;
+            border-radius: 12px;
+            border: 1px solid #DCE6F2;
+        }
+
+        .numero-rapido {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4A6FA5;
+            margin-bottom: 5px;
+        }
+
+        .rotulo-rapido {
+            color: #A7B99E;
+            font-size: 0.8rem;
+        }
+
+        .botao-sair {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .botao-sair:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .card-informacoes {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(74, 111, 165, 0.08);
+            border: 1px solid #DCE6F2;
+        }
+
+        .cabecalho-informacoes {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #DCE6F2;
+        }
+
+        .titulo-informacoes {
+            font-size: 1.8rem;
+            color: #4A6FA5;
+            font-weight: 600;
+        }
+
+        .grid-informacoes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .grupo-informacao {
+            margin-bottom: 25px;
+        }
+
+        .rotulo-informacao {
+            display: block;
+            color: #A7B99E;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .valor-informacao {
+            font-size: 1.1rem;
+            color: #2B2B2B;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid #DCE6F2;
+        }
+
+        .valor-informacao.destaque {
+            color: #4A6FA5;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .secao-acoes {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #DCE6F2;
+        }
+
+        .titulo-acoes {
+            font-size: 1.3rem;
+            color: #4A6FA5;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .grid-acoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .botao-acao {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: #FAFAF8;
+            border: 1px solid #DCE6F2;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2B2B2B;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .botao-acao:hover {
+            background: #4A6FA5;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(74, 111, 165, 0.2);
+        }
+
+        .icone-acao {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 968px) {
+            .layout-perfil {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .card-avatar {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .barra-superior {
+                padding: 15px 20px;
+            }
+
+            .nome-site {
+                font-size: 1.5rem;
+            }
+
+            .barra-navegacao {
+                padding: 12px 20px;
+                gap: 10px;
+            }
+
+            .link-navegacao {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+
+            .container-principal {
+                padding: 30px 15px;
+            }
+
+            .grid-informacoes {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-acoes {
+                grid-template-columns: 1fr;
+            }
+
+            .titulo-perfil {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .barra-superior {
+                padding: 12px 15px;
+            }
+
+            .logo-pequena {
+                width: 40px;
+                height: 40px;
+            }
+
+            .nome-site {
+                font-size: 1.3rem;
+            }
+
+            .icone-perfil {
+                width: 45px;
+                height: 45px;
+            }
+
+            .card-informacoes {
+                padding: 25px 20px;
+            }
+
+            .estatisticas-rapidas {
+                grid-template-columns: 1fr;
+            }
+
+            .barra-navegacao {
+                gap: 5px;
+            }
+
+            .link-navegacao {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="barra-superior">
+        <a href="/dashboard" class="logo-link">
+            <img src="/static/imagens/logo.png" alt="Wellness" class="logo-pequena">
+            <span class="nome-site">Wellness</span>
+        </a>
+
+        <div class="perfil-usuario">
+            <div class="icone-perfil" onclick="window.location.href='/perfil'">
+                {{ user.nome[0] | upper }}
+            </div>
+        </div>
+    </header>
+
+    <nav class="barra-navegacao">
+        <a href="/treino_registro" class="link-navegacao">Treino</a>
+        <a href="/exercicios_cadastro" class="link-navegacao">Exercícios</a>
+        <a href="/medidas_registro" class="link-navegacao">Medidas</a>
+        <a href="/refeicoes_registro" class="link-navegacao">Alimentação</a>
+        <a href="/alimentos_cadastro" class="link-navegacao">Alimentos</a>
+        <a href="/objetivos" class="link-navegacao">Objetivos</a>
+        <a href="/relatorios" class="link-navegacao">Relatórios</a>
+        <a href="/sono_registro" class="link-navegacao">Sono</a>
+        <a href="/agua_registro" class="link-navegacao">Água</a>
+    </nav>
+
+    <main class="container-principal">
+        <div class="cabecalho-perfil">
+            <h1 class="titulo-perfil">Meu Perfil</h1>
+            <p class="subtitulo-perfil">Gerencie suas informações pessoais</p>
+        </div>
+
+        <div class="layout-perfil">
+            <div class="card-avatar">
+                <div class="avatar-grande">
+                    {{ user.nome[0] | upper }}
+                </div>
+                <h2 class="nome-usuario">{{ user.nome }}</h2>
+                <p class="email-usuario">{{ user.email }}</p>
+                
+                <div class="estatisticas-rapidas">
+                    <div class="estatistica-rapida">
+                        <div class="numero-rapido">{{ user.treinos|length if user.treinos else 0 }}</div>
+                        <div class="rotulo-rapido">Treinos</div>
+                    </div>
+                    <div class="estatistica-rapida">
+                        <div class="numero-rapido">{{ user.objetivos|length if user.objetivos else 0 }}</div>
+                        <div class="rotulo-rapido">Objetivos</div>
+                    </div>
+                </div>
+
+                <a href="/logout" class="botao-sair">
+                    🚪 Sair da Conta
+                </a>
+            </div>
+
+            <div class="card-informacoes">
+                <div class="cabecalho-informacoes">
+                    <h2 class="titulo-informacoes">Informações Pessoais</h2>
+                </div>
+
+                <div class="grid-informacoes">
+                    <div class="grupo-informacao">
+                        <span class="rotulo-informacao">Nome Completo</span>
+                        <div class="valor-informacao destaque">{{ user.nome }}</div>
+                    </div>
+
+                    <div class="grupo-informacao">
+                        <span class="rotulo-informacao">Email</span>
+                        <div class="valor-informacao">{{ user.email }}</div>
+                    </div>
+
+                    <div class="grupo-informacao">
+                        <span class="rotulo-informacao">Data de Nascimento</span>
+                        <div class="valor-informacao">{{ user.data_nascimento }}</div>
+                    </div>
+
+                    <div class="grupo-informacao">
+                        <span class="rotulo-informacao">Membro Desde</span>
+                        <div class="valor-informacao">{{ user.data_criacao[:10] if user.data_criacao else 'Não informado' }}</div>
+                    </div>
+                </div>
+
+                <div class="secao-acoes">
+                    <h3 class="titulo-acoes">Minha Atividade</h3>
+                    <div class="grid-acoes">
+                        <a href="/treino_historico" class="botao-acao">
+                            <span class="icone-acao">💪</span>
+                            <span>{{ user.treinos|length if user.treinos else 0 }} Treinos Registrados</span>
+                        </a>
+                        <a href="/medidas_historico" class="botao-acao">
+                            <span class="icone-acao">📏</span>
+                            <span>{{ user.medidas|length if user.medidas else 0 }} Medidas</span>
+                        </a>
+                        <a href="/diario_alimentar" class="botao-acao">
+                            <span class="icone-acao">🍎</span>
+                            <span>{{ user.refeicoes|length if user.refeicoes else 0 }} Refeições</span>
+                        </a>
+                        <a href="/objetivos" class="botao-acao">
+                            <span class="icone-acao">🎯</span>
+                            <span>{{ user.objetivos|length if user.objetivos else 0 }} Objetivos</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Medidas - Wellness</title>
+    <link rel="icon" href="/static/imagens/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #FAFAF8;
+            color: #2B2B2B;
+            min-height: 100vh;
+        }
+
+        .barra-superior {
+            background: linear-gradient(135deg, #4A6FA5 0%, #A7B99E 100%);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-pequena {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .nome-site {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FAFAF8;
+        }
+
+        .perfil-usuario {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icone-perfil {
+            width: 50px;
+            height: 50px;
+            background: #FAFAF8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4A6FA5;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .barra-navegacao {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #DCE6F2;
+        }
+
+        .link-navegacao {
+            color: #2B2B2B;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .link-navegacao:hover {
+            background: #DCE6F2;
+            color: #4A6FA5;
+        }
+
+        .container-principal {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #4A6FA5;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitulo-pagina {
+            text-align: center;
+            color: #A7B99E;
+            margin-bottom: 30px;
+        }
+
+        .card-lista {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(74, 111, 165, 0.1);
+            border: 1px solid #DCE6F2;
+        }
+
+        .item-medida {
+            border-left: 4px solid #A7B99E;
+            padding: 25px;
+            margin-bottom: 20px;
+            background: #FAFAF8;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .cabecalho-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #DCE6F2;
+        }
+
+        .data-medida {
+            font-size: 1.1rem;
+            color: #4A6FA5;
+            font-weight: bold;
+        }
+
+        .detalhes-medida {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .medida-item {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #DCE6F2;
+        }
+
+        .valor-medida {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4A6FA5;
+            margin-bottom: 5px;
+        }
+
+        .rotulo-medida {
+            color: #A7B99E;
+            font-size: 0.8rem;
+        }
+
+        .sem-medidas {
+            text-align: center;
+            color: #A7B99E;
+            padding: 50px;
+            font-style: italic;
+        }
+
+        .botao-principal {
+            background: #4A6FA5;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .botao-principal:hover {
+            background: #3A5A85;
+        }
+
+        .container-botao {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .detalhes-medida {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cabecalho-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container-principal {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+            
+            .card-lista {
+                padding: 20px;
+            }
+            
+            .titulo-pagina {
+                font-size: 1.5rem;
+            }
+            
+            .detalhes-medida {
+                grid-template-columns: 1fr;
+            }
+            
+            .item-medida {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="barra-superior">
+        <a href="/dashboard" class="logo-link">
+            <img src="/static/imagens/logo.png" alt="Wellness" class="logo-pequena">
+            <span class="nome-site">Wellness</span>
+        </a>
+        <div class="perfil-usuario">
+            <div class="icone-perfil" onclick="window.location.href='/perfil'">
+                {{ session.user_name[0] | upper if session.user_name else 'U' }}
+            </div>
+        </div>
+    </header>
+
+    <nav class="barra-navegacao">
+        <a href="/treino_registro" class="link-navegacao">Treino</a>
+        <a href="/exercicios_cadastro" class="link-navegacao">Exercícios</a>
+        <a href="/medidas_registro" class="link-navegacao">Medidas</a>
+        <a href="/refeicoes_registro" class="link-navegacao">Alimentação</a>
+        <a href="/alimentos_cadastro" class="link-navegacao">Alimentos</a>
+        <a href="/objetivos" class="link-navegacao">Objetivos</a>
+        <a href="/relatorios" class="link-navegacao">Relatórios</a>
+        <a href="/sono_registro" class="link-navegacao">Sono</a>
+        <a href="/agua_registro" class="link-navegacao">Água</a>
+    </nav>
+
+    <main class="container-principal">
+        <h1 class="titulo-pagina">Histórico de Medidas</h1>
+        <p class="subtitulo-pagina">Acompanhe sua evolução corporal</p>
+
+        <div class="card-lista">
+            {% if medidas %}
+                {% for medida in medidas|reverse %}
+                <div class="item-medida">
+                    <div class="cabecalho-item">
+                        <span class="data-medida">{{ medida.data[:10] }}</span>
+                    </div>
+                    
+                    <div class="detalhes-medida">
+                        <div class="medida-item">
+                            <div class="valor-medida">{{ medida.peso }} kg</div>
+                            <div class="rotulo-medida">Peso</div>
+                        </div>
+                        
+                        <div class="medida-item">
+                            <div class="valor-medida">{{ medida.altura }} cm</div>
+                            <div class="rotulo-medida">Altura</div>
+                        </div>
+                        
+                        {% if medida.braco_esquerdo %}
+                        <div class="medida-item">
+                            <div class="valor-medida">{{ medida.braco_esquerdo }} cm</div>
+                            <div class="rotulo-medida">Braço Esquerdo</div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if medida.braco_direito %}
+                        <div class="medida-item">
+                            <div class="valor-medida">{{ medida.braco_direito }} cm</div>
+                            <div class="rotulo-medida">Braço Direito</div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if medida.cintura %}
+                        <div class="medida-item">
+                            <div class="valor-medida">{{ medida.cintura }} cm</div>
+                            <div class="rotulo-medida">Cintura</div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if medida.quadril %}
+                        <div class="medida-item">
+                            <div class="valor-medida">{{ medida.quadril }} cm</div>
+                            <div class="rotulo-medida">Quadril</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="sem-medidas">
+                    <h3>Nenhuma medida registrada ainda</h3>
+                    <p>Comece registrando suas primeiras medidas!</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="container-botao">
+            <a href="/medidas_registro" class="botao-principal">
+                Registrar Novas Medidas
+            </a>
+        </div>
+    </main>
+</body>
+</html>

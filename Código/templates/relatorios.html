@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - Wellness</title>
+    <link rel="icon" href="/static/imagens/logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #FAFAF8;
+            color: #2B2B2B;
+            min-height: 100vh;
+        }
+
+        .barra-superior {
+            background: linear-gradient(135deg, #4A6FA5 0%, #A7B99E 100%);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-pequena {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .nome-site {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FAFAF8;
+        }
+
+        .perfil-usuario {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icone-perfil {
+            width: 50px;
+            height: 50px;
+            background: #FAFAF8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4A6FA5;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .barra-navegacao {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #DCE6F2;
+        }
+
+        .link-navegacao {
+            color: #2B2B2B;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .link-navegacao:hover {
+            background: #DCE6F2;
+            color: #4A6FA5;
+        }
+
+        .container-principal {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #4A6FA5;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitulo-pagina {
+            text-align: center;
+            color: #A7B99E;
+            margin-bottom: 30px;
+        }
+
+        .grid-relatorios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(74, 111, 165, 0.1);
+            border: 1px solid #DCE6F2;
+        }
+
+        .titulo-card {
+            color: #4A6FA5;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #DCE6F2;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icone-card {
+            font-size: 1.2rem;
+        }
+
+        .estatistica-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .estatistica-item:last-child {
+            border-bottom: none;
+        }
+
+        .estatistica-label {
+            color: #2B2B2B;
+            font-weight: 500;
+        }
+
+        .estatistica-valor {
+            color: #4A6FA5;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .barra-progresso {
+            width: 100%;
+            height: 8px;
+            background: #DCE6F2;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progresso {
+            height: 100%;
+            background: linear-gradient(135deg, #4A6FA5 0%, #A7B99E 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progresso-75 {
+            width: 75%;
+        }
+
+        .progresso-60 {
+            width: 60%;
+        }
+
+        .progresso-85 {
+            width: 85%;
+        }
+
+        .lista-dados {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .item-dado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #FAFAF8;
+            border-radius: 6px;
+            border-left: 3px solid #4A6FA5;
+        }
+
+        .dado-label {
+            color: #2B2B2B;
+            font-weight: 500;
+        }
+
+        .dado-valor {
+            color: #4A6FA5;
+            font-weight: bold;
+        }
+
+        .dado-valor.positivo {
+            color: #A7B99E;
+        }
+
+        .sem-dados {
+            text-align: center;
+            padding: 30px 20px;
+            color: #A7B99E;
+        }
+
+        .sem-dados h3 {
+            margin-bottom: 10px;
+            color: #4A6FA5;
+        }
+
+        .card-destaque {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #4A6FA5 0%, #A7B99E 100%);
+            color: white;
+        }
+
+        .card-destaque .titulo-card {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .card-destaque .estatistica-valor {
+            color: white;
+        }
+
+        .card-destaque .estatistica-label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .resumo-mensal {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .item-resumo {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .numero-resumo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .label-resumo {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+            .container-principal {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .titulo-pagina {
+                font-size: 1.5rem;
+            }
+            
+            .grid-relatorios {
+                grid-template-columns: 1fr;
+            }
+            
+            .resumo-mensal {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="barra-superior">
+        <a href="/dashboard" class="logo-link">
+            <img src="/static/imagens/logo.png" alt="Wellness" class="logo-pequena">
+            <span class="nome-site">Wellness</span>
+        </a>
+        <div class="perfil-usuario">
+            <div class="icone-perfil" onclick="window.location.href='/perfil'">
+                {{ session.user_name[0] | upper if session.user_name else 'U' }}
+            </div>
+        </div>
+    </header>
+
+    <nav class="barra-navegacao">
+        <a href="/treino_registro" class="link-navegacao">Treino</a>
+        <a href="/exercicios_cadastro" class="link-navegacao">Exercícios</a>
+        <a href="/medidas_registro" class="link-navegacao">Medidas</a>
+        <a href="/refeicoes_registro" class="link-navegacao">Alimentação</a>
+        <a href="/alimentos_cadastro" class="link-navegacao">Alimentos</a>
+        <a href="/objetivos" class="link-navegacao">Objetivos</a>
+        <a href="/relatorios" class="link-navegacao">Relatórios</a>
+        <a href="/sono_registro" class="link-navegacao">Sono</a>
+        <a href="/agua_registro" class="link-navegacao">Água</a>
+    </nav>
+
+    <main class="container-principal">
+        <h1 class="titulo-pagina">Relatórios e Estatísticas</h1>
+        <p class="subtitulo-pagina">Acompanhe seu progresso e desempenho</p>
+
+        <div class="card card-destaque">
+            <h2 class="titulo-card">
+                <span class="icone-card">📊</span>
+                Resumo do Mês
+            </h2>
+            <div class="resumo-mensal">
+                <div class="item-resumo">
+                    <div class="numero-resumo">12</div>
+                    <div class="label-resumo">Treinos</div>
+                </div>
+                <div class="item-resumo">
+                    <div class="numero-resumo">7.2h</div>
+                    <div class="label-resumo">Sono/Dia</div>
+                </div>
+                <div class="item-resumo">
+                    <div class="numero-resumo">14L</div>
+                    <div class="label-resumo">Água Total</div>
+                </div>
+                <div class="item-resumo">
+                    <div class="numero-resumo">3</div>
+                    <div class="label-resumo">Objetivos</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-relatorios">
+            <div class="card">
+                <h2 class="titulo-card">
+                    <span class="icone-card">💪</span>
+                    Treinos
+                </h2>
+                <div class="lista-dados">
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Total de Treinos</span>
+                        <span class="estatistica-valor">12</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Tempo Médio</span>
+                        <span class="estatistica-valor">45min</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Dias na Semana</span>
+                        <span class="estatistica-valor">5/7</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Frequência</span>
+                        <span class="estatistica-valor">75%</span>
+                    </div>
+                    <div class="barra-progresso">
+                        <div class="progresso progresso-75"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="titulo-card">
+                    <span class="icone-card">😴</span>
+                    Sono
+                </h2>
+                <div class="lista-dados">
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Média de Horas</span>
+                        <span class="estatistica-valor">7.2h</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Qualidade Média</span>
+                        <span class="estatistica-valor">Boa</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Noites Registradas</span>
+                        <span class="estatistica-valor">28</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="titulo-card">
+                    <span class="icone-card">💧</span>
+                    Hidratação
+                </h2>
+                <div class="lista-dados">
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Média Diária</span>
+                        <span class="estatistica-valor">2000ml</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Total da Semana</span>
+                        <span class="estatistica-valor">14L</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Meta Atingida</span>
+                        <span class="estatistica-valor">85%</span>
+                    </div>
+                    <div class="barra-progresso">
+                        <div class="progresso progresso-85"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="titulo-card">
+                    <span class="icone-card">📏</span>
+                    Medidas
+                </h2>
+                <div class="lista-dados">
+                    <div class="item-dado">
+                        <span class="dado-label">Peso</span>
+                        <span class="dado-valor">75kg</span>
+                    </div>
+                    <div class="item-dado">
+                        <span class="dado-label">Altura</span>
+                        <span class="dado-valor">175cm</span>
+                    </div>
+                    <div class="item-dado">
+                        <span class="dado-label">Cintura</span>
+                        <span class="dado-valor">85cm</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Evolução</span>
+                        <span class="dado-valor positivo">-2kg</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="titulo-card">
+                    <span class="icone-card">🍎</span>
+                    Alimentação
+                </h2>
+                <div class="lista-dados">
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Refeições/Dia</span>
+                        <span class="estatistica-valor">4</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Calorias Médias</span>
+                        <span class="estatistica-valor">2200</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Dias Registrados</span>
+                        <span class="estatistica-valor">25</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="titulo-card">
+                    <span class="icone-card">🎯</span>
+                    Objetivos
+                </h2>
+                <div class="lista-dados">
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Total de Objetivos</span>
+                        <span class="estatistica-valor">5</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Concluídos</span>
+                        <span class="estatistica-valor">3</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Em Andamento</span>
+                        <span class="estatistica-valor">2</span>
+                    </div>
+                    <div class="estatistica-item">
+                        <span class="estatistica-label">Taxa de Sucesso</span>
+                        <span class="estatistica-valor">60%</span>
+                    </div>
+                    <div class="barra-progresso">
+                        <div class="progresso progresso-60"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
